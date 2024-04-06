@@ -1,0 +1,2 @@
+0 Give access
+1 don't_give_access
