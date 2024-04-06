@@ -27,4 +27,4 @@ async def Save(ctx):
 async def Help(ctx):
     await ctx.send("есть только команда !Save для того чтобы помочь миру")
 
-bot.run("TOKEN")
+bot.run("")
