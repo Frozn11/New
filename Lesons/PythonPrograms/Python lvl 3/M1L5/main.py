@@ -17,7 +17,7 @@ def go(message):
 @bot.message_handler(commands=['info'])
 def info(message):
     if message.from_user.username in Pokemon.pokemons.keys():
-        pok = Pokemon.pokemons(message.from_user.username)
-        bot.send_message(message.chat.id, pok.self.info)
+        pok = Pokemon.pokemons[message.from_user.username]
+        bot.send_message(message.chat.id, pok.info())
 
 bot.infinity_polling(none_stop=True)
