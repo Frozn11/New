@@ -6,4 +6,7 @@
 # есть пайтон коды с разные возможностями
 #### как напремер **Discord Bots** и **web на flask** и **telebot** и другие
 ![image.png](./Lesons/images/Discord_6NkYeqQNQw.png)
+![image.png](./Lesons/images/Telegram_HaNFdiY6Qf.png)
+![image.png](./Lesons/images/firefox_BBmRTWQRlT.png)
+
 
