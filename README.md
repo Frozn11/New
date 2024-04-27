@@ -5,5 +5,5 @@
 
 # есть пайтон коды с разные возможностями
 #### как напремер Discord bots и web на flask и telebot и другие
-![image.png](./lesons/Discord_6NkYeqQNQw.png)
+![image.png](./lesons/images/Discord_6NkYeqQNQw.png)
 
