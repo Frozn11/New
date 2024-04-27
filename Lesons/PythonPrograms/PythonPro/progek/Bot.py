@@ -39,7 +39,7 @@ class SimpleView(discord.ui.View):
         # await msg.delete()
 
         await weatherNow()
-        embedVar = discord.Embed(title=f"температура: {datanow['main']['temp']}°", description=f"погода: {datanow['weather'][0]['description']} {word} \n \t \t \t макс.температура: {datanow['main']['temp_min']}° \n \t \t \t мини.температура: {datanow['main']['temp_max']}°", color=0x00ff00)
+        embedVar = discord.Embed(title=f"температура: {datanow['main']['temp']}°", description=f"погода: {datanow['weather'][0]['description']} {word} \n \t \t \t макс.температура: {datanow['main']['temp_min']}° \n \t \t \t мини.температура: {datanow['main']['temp_max']}°")
         await interaction.response.send_message(embed=embedVar)
         # -if you want with out embed-
         # await interaction.response.send_message(f"температура: {datanow['main']['temp']}° \n \t \t \t погода: {datanow['weather'][0]['description']} {word} \n \t \t \t макс.температура: {datanow['main']['temp_min']}° \n \t \t \t мини.температура: {datanow['main']['temp_max']}°")
