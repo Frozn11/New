@@ -4,7 +4,7 @@
       "name": "first pokemon",
       "message": "NEW Achievement \nfirst pokemon you got!",
       "what": "get first pokemon by using command /go",
-      "get": true
+      "get": false
     },
     {
       "name": "get Charizard",
