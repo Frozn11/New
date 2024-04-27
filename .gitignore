@@ -6,4 +6,5 @@ pipfile
 Pipfile.lock
 test2.py
 testbot2.py
+config.py
 *.pyc
