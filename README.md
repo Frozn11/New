@@ -5,7 +5,7 @@
 
 # есть пайтон коды с разные возможностями
 #### как напремер **Discord Bots** и **web на flask** и **telebot** и другие
-<img src="https://github.com/Frozn11/progect/blob/main/Lesons/images/Discord_6NkYeqQNQw.png" width="500" height="500" /> <img src="https://github.com/Frozn11/progect/blob/main/Lesons/images/Telegram_HaNFdiY6Qf.png" width="500" height="500" />
+<img src="https://github.com/Frozn11/progect/blob/main/Lesons/images/Discord_6NkYeqQNQw.png" width="550" height="500" /> <img src="https://github.com/Frozn11/progect/blob/main/Lesons/images/Telegram_HaNFdiY6Qf.png" width="500" height="500" />
 (./Lesons/images/firefox_BBmRTWQRlT.png")
 
 
