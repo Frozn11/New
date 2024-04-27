@@ -39,7 +39,10 @@ class SimpleView(discord.ui.View):
         # await msg.delete()
 
         await weatherNow()
-        await interaction.response.send_message(f"температура: {datanow['main']['temp']}° \n \t \t \t погода: {datanow['weather'][0]['description']} {word} \n \t \t \t макс.температура: {datanow['main']['temp_min']}° \n \t \t \t мини.температура: {datanow['main']['temp_max']}°")
+        embedVar = discord.Embed(title=f"температура: {datanow['main']['temp']}°", description=f"погода: {datanow['weather'][0]['description']} {word} \n \t \t \t макс.температура: {datanow['main']['temp_min']}° \n \t \t \t мини.температура: {datanow['main']['temp_max']}°", color=0x00ff00)
+        await interaction.response.send_message(embed=embedVar)
+        # -if you want with out embed-
+        # await interaction.response.send_message(f"температура: {datanow['main']['temp']}° \n \t \t \t погода: {datanow['weather'][0]['description']} {word} \n \t \t \t макс.температура: {datanow['main']['temp_min']}° \n \t \t \t мини.температура: {datanow['main']['temp_max']}°")
         self.foo = True
         self.stop()
         
@@ -47,36 +50,38 @@ class SimpleView(discord.ui.View):
                     style=discord.ButtonStyle.blurple)
     async def weatherfor5days(self, interaction: discord.Interaction, button: discord.ui.Button):
         self.weatherNowbool = False
-        global city
-        city = s_city
-        city_id = 0
-        res = requests.get("http://api.openweathermap.org/data/2.5/find",
-            params={'q': s_city, 'type': 'like', 'units': 'metric', 'APPID': appid})
-        datanow = res.json()
-        cities = ["{} ({})".format(d['name'], d['sys']['country'])
-        for d in datanow['list']]
-        print("city:", cities)
-        try:
-            city_id = datanow['list'][0]['id']
-            city_id = city_id
-            print("success")
-        except:
-            city_id = 524901
-            print("fail")
-
-        print('city_id=', city_id)    
-        res = requests.get("http://api.openweathermap.org/data/2.5/forecast",
-                        params={'id': city_id, 'units': 'metric', 'lang': 'ru', 'APPID': appid})
-        dataweather = res.json()
-        global data 
-        data = []
-
-        for i in dataweather['list']:
-            data.append(f"дата/время: {i['dt_txt']}  температура: {'{0:+3.0f}'.format(i['main']['temp'])}° погода: {i['weather'][0]['description']}")  
-        
+        # global city
+        # city = s_city
+        # city_id = 0
+        # try:
+        #     res = requests.get("http://api.openweathermap.org/data/2.5/find",
+        #         params={'q': s_city, 'type': 'like', 'units': 'metric', 'APPID': appid})
+        #     datanow = res.json()
+        #     cities = ["{} ({})".format(d['name'], d['sys']['country'])
+        #         for d in datanow['list']]
+        #     city_id = datanow['list'][0]['id']
+        #     print("success")
+        #     print("city:", cities)
+        # except Exception as e:
+        #     city_id = 524901
+        #     print(f"fail{e}")
+        #     pass
+        # try:    
+        #     print('city_id=', city_id)    
+        #     res = requests.get("http://api.openweathermap.org/data/2.5/forecast",
+        #                     params={'id': city_id, 'units': 'metric', 'lang': 'ru', 'APPID': appid})
+        #     dataweather = res.json()
+        #     global data 
+        #     data = []
+        #     for i in dataweather['list']:
+        #         data.append(f"дата/время: {i['dt_txt']}  температура: {'{0:+3.0f}'.format(i['main']['temp'])}° погода: {i['weather'][0]['description']}")             
     
-        await interaction.response.send_message("success")    
-        
+        #     await interaction.response.send_message("success")    
+        # except Exception as e:
+        #     print(f"epic fail {e}")
+        #     pass
+        await interaction.response.send_message("success") 
+        await weatherFor5dayscheck()
         self.foo = True
         self.stop()
 
@@ -162,7 +167,33 @@ class Pagination_View(discord.ui.View):
         self.current_page = math.ceil(len(self.data) / self.sep)
         await self.update_message(self.get_current_page_data())
 
-
+async def weatherFor5dayscheck():
+    try:
+        res = requests.get("http://api.openweathermap.org/data/2.5/find",
+            params={'q': s_city, 'type': 'like', 'units': 'metric', 'APPID': appid})
+        datanow = res.json()
+        cities = ["{} ({})".format(d['name'], d['sys']['country'])
+            for d in datanow['list']]
+        city_id = datanow['list'][0]['id']
+        print("success")
+        print("city:", cities)
+    except Exception as e:
+        city_id = 524901
+        print(f"fail{e}")
+        pass
+    try:    
+        print('city_id=', city_id)    
+        res = requests.get("http://api.openweathermap.org/data/2.5/forecast",
+                        params={'id': city_id, 'units': 'metric', 'lang': 'ru', 'APPID': appid})
+        dataweather = res.json()
+        global data 
+        data = ['']
+        for i in dataweather['list']:
+            data.append(f"дата/время: {i['dt_txt']}  температура: {'{0:+3.0f}'.format(i['main']['temp'])}° погода: {i['weather'][0]['description']}")             
+  
+    except Exception as e:
+        print(f"epic fail {e}")
+        pass
         
 async def weatherNow():
     global datanow 
@@ -171,35 +202,40 @@ async def weatherNow():
     emojes = {
     "пасмурно": [":cloud:"],
     "ясно": [":sunny:"],
+    "небольшой дождь": [":white_sun_rain_cloud: "],
     "облачно с прояснениями": [":white_sun_cloud: "],
     "дождь": [":cloud_rain:"],
     "переменная облачность": [":white_sun_small_cloud: "]
     }
-    city_id = 0
-    res = requests.get("http://api.openweathermap.org/data/2.5/find",
-            params={'q': s_city, 'type': 'like', 'units': 'metric', 'APPID': appid})
-    datanow = res.json()
-    cities = ["{} ({})".format(d['name'], d['sys']['country'])
-    for d in datanow['list']]
-    print("city:", cities)
     try:
-            city_id = datanow['list'][0]['id']
-            city_id = city_id
-            print("success")
-    except:
+        city_id = 0
+        res = requests.get("http://api.openweathermap.org/data/2.5/find",
+                params={'q': s_city, 'type': 'like', 'units': 'metric', 'APPID': appid})
+        datanow = res.json()
+        cities = ["{} ({})".format(d['name'], d['sys']['country'])
+        for d in datanow['list']]
+        print("city:", cities)
+        city_id = datanow['list'][0]['id']
+        city_id = city_id
+        print("success")
+    except Exception as e:
         city_id = 524901
-        print("fail")
-    res = requests.get("http://api.openweathermap.org/data/2.5/weather",
-                    params={'id': city_id, 'units': 'metric', 'lang': 'ru', 'APPID': appid})
-    datanow = res.json()
-    # print(data)
-    word = datanow["weather"][0]['description']
-    word = emojes.get(word, [])
-    word =  "".join(word)
-    if not word:
-        print("no")
-    print(s_city)
-
+        print(f"fail {e}")
+        pass
+    try:
+        res = requests.get("http://api.openweathermap.org/data/2.5/weather",
+                        params={'id': city_id, 'units': 'metric', 'lang': 'ru', 'APPID': appid})
+        datanow = res.json()
+        # print(data)
+        word = datanow["weather"][0]['description']
+        word = emojes.get(word, [])
+        word =  "".join(word)
+        if not word:
+            print("no")
+        print(s_city)
+    except Exception as e:
+        print(f"no feil {e}")
+        pass
 
 
 
