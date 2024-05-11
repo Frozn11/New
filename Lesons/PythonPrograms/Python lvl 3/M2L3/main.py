@@ -25,10 +25,12 @@ def send_question(chat_id):
 def callback_query(call):
     if call.data == "correct":
         bot.answer_callback_query(call.id, "Answer is correct")
+        bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id, reply_markup=None)
         points[call.message.chat.id] += 1
         # Задание 9 - добавь очки пользователю за правильный ответ
     elif call.data == "wrong":
         bot.answer_callback_query(call.id,  "Answer is wrong")
+        bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id, reply_markup=None)
         ## msg = bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f'{quiz_questions[user_responses[chat_id]].text}', reply_markup=None)
     # Задание 5 - реализуй счетчик вопросов
     user_responses[call.message.chat.id] += 1
