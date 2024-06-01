@@ -25,25 +25,20 @@ class DB_Manager:
                 )
             ''')     
         # дз: создать другие таблицы    
-            conn.execute('''
-                CREATE TABLE status (
-                        status_id INTGER PRIMARY KEY, 
-                        Status_name TEXT
-                )
-            ''')
-            conn.execute('''
-                CREATE TABLE projects_skills (
-                        skill_id INTGER PRIMARY KEY, 
-                        project_id INTEGER,
-                        FOREIGN KEY(skill_id) REFERENCES skills(skill_id)
-                )
-            ''')          
-            conn.execute('''
-                CREATE TABLE skills (
-                        skill_id INTGER PRIMARY KEY, 
-                        skill_name TEXT
-                )
-            ''')
+            conn.execute('''CREATE TABLE skills (
+                            skill_id INTEGER PRIMARY KEY,
+                            skill_name TEXT
+                        )''')
+            conn.execute('''CREATE TABLE project_skills (
+                            project_id INTEGER,
+                            skill_id INTEGER,
+                            FOREIGN KEY(project_id) REFERENCES projects(project_id),
+                            FOREIGN KEY(skill_id) REFERENCES skills(skill_id)
+                        )''')
+            conn.execute('''CREATE TABLE status (
+                            status_id INTEGER PRIMARY KEY,
+                            status_name TEXT
+                        )''')
             conn.commit()
         pass   
         print('База данных создана')
