@@ -48,7 +48,23 @@ class DB_Manager:
             cur = conn.cursor()
             cur.execute(sql, data)
             return cur.fetchall()
-        
+    def alter(self):
+        conn = sqlite3.connect(self.database)
+        try:
+            with conn:
+                try:
+                    new_column_name = 'image'
+                    new_column_type = 'TEXT'
+                    alter_query_columa = f"ALTER TABLE projects ADD COLUMN {new_column_name} {new_column_type}"
+                    conn.execute(alter_query_columa)
+                except Exception as e:
+                    print(e)
+                image = 'test2'
+                alter_query = f"UPDATE projects SET image = '{image}'"
+                conn.execute(alter_query)   
+        except Exception as e:
+            print(e)
+
     def default_insert(self):
         sql = 'INSERT OR IGNORE INTO skills (skill_name) values(?)'
         data = skills
@@ -132,7 +148,11 @@ WHERE skill_id = ? AND project_id = ? """ # Запиши сюда правиль
 
 if __name__ == '__main__':
     manager = DB_Manager(DATABASE)
-    manager.create_tables()
-    manager.default_insert()
+    # manager.create_tables()
+    # manager.default_insert()
+    manager.alter()
+    # manager.insert_skill(111, "Bot AI-translator", "Python")
+    # num = manager.get_project_id('Bot AI-translator', 111)
+    # print(num)
 
-    
+    # manager.insert_project([(1, "Pokemon", "nema", 1), (2, "Digimon", "none", 2)])
