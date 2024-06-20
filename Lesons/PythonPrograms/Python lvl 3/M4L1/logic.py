@@ -2,6 +2,7 @@ import sqlite3
 from datetime import datetime
 from config import DATABASE 
 import os
+import random
 import cv2
 
 class DatabaseManager:
@@ -83,14 +84,15 @@ class DatabaseManager:
         conn = sqlite3.connect(self.database)
         with conn:
             cur = conn.cursor()
-            cur.execute('')
+            cur.execute(f'SELECT {prize_id} FROM prizes')
         return cur.fetchall()[0][0]
 
     def get_random_prize(self):
         conn = sqlite3.connect(self.database)
         with conn:
             cur = conn.cursor()
-            cur.execute('')
+            randmon_cur = random.choice(cur)
+            cur.execute(f'SELECT {randmon_cur} FROM prizes')
         return cur.fetchall()[0]
     
   
