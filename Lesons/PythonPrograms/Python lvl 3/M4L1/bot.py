@@ -35,6 +35,8 @@ def send_message():
         
 
 def shedule_thread():
+    // or you can change to evry minute
+    //                ↓ 
     schedule.every().hour.do(send_message) # Здесь ты можешь задать периодичность отправки картинок
     while True:
         schedule.run_pending()
