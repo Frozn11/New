@@ -2,7 +2,6 @@ import sqlite3
 from datetime import datetime
 from config import DATABASE 
 import os
-import random
 import cv2
 
 class DatabaseManager:
@@ -84,17 +83,31 @@ class DatabaseManager:
         conn = sqlite3.connect(self.database)
         with conn:
             cur = conn.cursor()
-            cur.execute(f'SELECT {prize_id} FROM prizes')
+            cur.execute('SELECT image FROM prizes WHERE prize_id = ?',(prize_id,))
         return cur.fetchall()[0][0]
 
     def get_random_prize(self):
         conn = sqlite3.connect(self.database)
         with conn:
             cur = conn.cursor()
-            randmon_cur = random.choice(cur)
-            cur.execute(f'SELECT {randmon_cur} FROM prizes')
+            cur.execute('SELECT * FROM prizes WHERE used = 0 ORDER BY RANDOM()')
         return cur.fetchall()[0]
     
+    def get_winners_count(self, prize_id):
+        conn = sqlite3.connect(self.database)
+        with conn:
+            cur = conn.cursor()
+            cur.execute('SELECT COUNT(*) FROM winners WHERE prize_id = ?', (prize_id, ))
+            return cur.fetchall()[0][0]
+
+    def get_rating(self):
+        conn = sqlite3.connect(self.database)
+        with conn:
+            cur = conn.cursor()
+            cur.execute('''
+                        SELECT users.user_name, COUNT(winners.prize_id) as count_prize FROM winners INNER JOIN users on users.user_id = winners.user_id GROUP BY winners.user_id ORDER BY count_prize LIMIT 10;
+                    ''')
+            return cur.fetchall()
   
 def hide_img(img_name):
     image = cv2.imread(f'img/{img_name}')
