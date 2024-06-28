@@ -35,7 +35,7 @@ def send_message():
         
 
 def shedule_thread():
-    schedule.every().hour.do(send_message) # Здесь ты можешь задать периодичность отправки картинок
+    schedule.every().minute.do(send_message) # Здесь ты можешь задать периодичность отправки картинок
     while True:
         schedule.run_pending()
         time.sleep(1)
@@ -61,8 +61,10 @@ def handle_rating(message):
     res = '\n'.join(res)
     res = f'|USER_NAME    |COUNT_PRIZE|\n{"_"*26}\n' + res
     bot.send_message(message.chat.id, res)
-    
-    
+
+@bot.message_handler(commands=['score'])
+def handle_score(mesaage):
+    return 
     
 @bot.callback_query_handler(func=lambda call: True)
 def callback_query(call):

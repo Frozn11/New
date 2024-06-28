@@ -40,9 +40,17 @@ cursor = connection.cursor()
 #             SELECT * FROM movies WHERE tagline = "The battle within.";
 # ''')
 
+
+
+# cursor.execute('''
+#             SELECT * FROM movies WHERE release_date < 1980 and vote_average > 8 ORDER BY vote_count DESC LIMIT 1;
+# ''')
+
+# cursor.execute('''
+#               SELECT title,budget,popularity,MAX(release_date),vote_average,vote_count,director_id FROM movies WHERE director_id = 4762''')
+
 cursor.execute('''
-            SELECT * FROM movies WHERE release_date < 1980 and vote_average > 8 ORDER BY vote_count DESC LIMIT 1;
-''')
+              SELECT title,budget,popularity,release_date,COUNT(tagline),director_id FROM movies WHERE director_id = 4762''')
 
 result = cursor.fetchall()
 connection.close()
