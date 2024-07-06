@@ -26,8 +26,6 @@ cursor = connection.cursor()
 # cursor.execute('''
 #                SELECT title,budget,popularity,release_date,vote_average,vote_count FROM movies GROUP BY release_date HAVING release_date < 1980 AND vote_count > 8''')
 
-
-
 # cursor.execute('''
 #         SELECT title, budget FROM movies ORDER BY popularity DESC LIMIT 1;
 # ''')
@@ -39,8 +37,6 @@ cursor = connection.cursor()
 # cursor.execute('''
 #             SELECT * FROM movies WHERE tagline = "The battle within.";
 # ''')
-
-
 
 # cursor.execute('''
 #             SELECT * FROM movies WHERE release_date < 1980 and vote_average > 8 ORDER BY vote_count DESC LIMIT 1;
