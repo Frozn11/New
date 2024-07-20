@@ -11,7 +11,7 @@ def get_data(start_date, end_date):
     prices = [res[i][1] for i in range(len(res))]
     return dates, prices
 
-def gen_graph(dates, prices, path="images/22"):
+def gen_graph(dates, prices, path):
     plt.figure(figsize=(8, 6))
     plt.plot(dates[::100], prices[::100], marker='o', color='r', linestyle='--')
     # доделать
@@ -21,6 +21,6 @@ def gen_graph(dates, prices, path="images/22"):
     plt.savefig(path)
     plt.close()
 
-dates, prices = get_data('2001-09-14', '2022-04-14') # указываем даты
+dates, prices = get_data('2018-09-14', '2022-04-14') # указываем даты
 # применяете функцию gen_graph
-gen_graph(dates,prices)
+gen_graph(dates,prices,"Images/LUL.png")
