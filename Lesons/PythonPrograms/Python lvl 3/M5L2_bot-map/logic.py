@@ -3,8 +3,8 @@ from config import *
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+import cartopy.feature as cfeature 
 import cartopy.crs as ccrs
-
 
 class DB_Map():
     def __init__(self, database):
@@ -60,6 +60,7 @@ class DB_Map():
 
     def create_grapf(self, path, cities):
         ax = plt.axes(projection=ccrs.PlateCarree())
+        ax.add_feature(cfeature.BORDERS, linestyle=':')/
         ax.stock_img()
         for city in cities:
             coordinates = self.get_coordinates(city) # coordinates = (77.55, 88.56)
@@ -67,9 +68,8 @@ class DB_Map():
                 lat, lng = coordinates # lat, lng = (77.55, 88.56)
                 plt.plot([lng], [lat], color='r', linewidth=1, marker='.', transform=ccrs.Geodetic())
                 plt.text(lng+3, lat+12, city, horizontalalignment='left', transform=ccrs.Geodetic())
-        plt.savefig(path)
-        plt.close()
-
+            plt.savefig(path)
+            plt.close()
 
     def draw_distance(self, city1, city2):
         pass
