@@ -64,9 +64,9 @@ class Text2ImageAPI:
         image.save(file_path)  # сохранение изображения на диск
         return
 
-if __name__ == '__main__':
-    api = Text2ImageAPI('https://api-key.fusionbrain.ai/', API_TOKEN, SECRET_KEY)
-    model_id = api.get_model()
-    uuid = api.generate("Spader-man cat", model_id)
-    images = api.check_generation(uuid)[0]
-    api.save_image(images,'yeah.png')
+# if __name__ == '__main__':
+#     api = Text2ImageAPI('https://api-key.fusionbrain.ai/', API_TOKEN, SECRET_KEY)
+#     model_id = api.get_model()
+#     uuid = api.generate("Spader-man cat", model_id)
+#     images = api.check_generation(uuid)[0]
+#     api.save_image(images,'yeah.png')
