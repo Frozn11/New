@@ -56,7 +56,7 @@ def gen_image(prompt, api_url, api_key, secret_key):
     my_string = str(images).replace("[", "").replace("]", "").replace("'", "")
     # print(my_string) 
     imgdata = base64.b64decode(my_string)
-    filename = 'some_image.jpg'
+    filename = 'some_image.png'
     with open(filename, 'wb') as f:
         f.write(imgdata)
         
